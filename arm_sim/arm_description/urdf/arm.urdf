@@ -1,0 +1,150 @@
+<robot name="robot">
+   <link name="world"/>
+  
+
+  <joint name="base_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="world"/>
+    <child link="base"/>
+  </joint>
+
+   <link name="base">
+    <visual>
+      <geometry>
+        <mesh filename="package://arm_description/mesh/base.stl"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="LF_wheel_joint" type="continuous">
+    <origin xyz="83.0e-3 48.50e-3 -25e-3" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <parent link="base"/>
+    <child link="LF_wheel"/>
+  </joint>
+
+  <link name="LF_wheel">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 1.57 0"/>
+      <geometry>
+        <mesh filename="package://arm_description/mesh/LF_wheel.stl"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="RF_wheel_joint" type="continuous">
+    <origin xyz="-83.0e-3 48.50e-3 -25e-3" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <parent link="base"/>
+    <child link="RF_wheel"/>
+  </joint>
+
+  <link name="RF_wheel">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -1.57 0"/>
+      <geometry>
+        <mesh filename="package://arm_description/mesh/RF_wheel.stl"/>
+      </geometry>
+    </visual>
+  </link>
+
+<joint name="LR_wheel_joint" type="continuous">
+    <origin xyz="83.0e-3 -48.50e-3 -25e-3" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <parent link="base"/>
+    <child link="LR_wheel"/>
+  </joint>
+
+  <link name="LR_wheel">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 1.57 0"/>
+      <geometry>
+        <mesh filename="package://arm_description/mesh/LR_wheel.stl"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="RR_wheel_joint" type="continuous">
+    <origin xyz="-83.0e-3 -48.50e-3 -25e-3" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <parent link="base"/>
+    <child link="RR_wheel"/>
+  </joint>
+
+  <link name="RR_wheel">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -1.57 0"/>
+      <geometry>
+        <mesh filename="package://arm_description/mesh/RR_wheel.stl"/>
+      </geometry>
+    </visual>
+  </link>
+
+ <joint name="link1_joint" type="revolute">
+    <origin xyz="0 0 208.95e-3" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit upper="6.28" lower="-6.28" effort="1000" velocity="1000.00"/>
+    <parent link="base"/>
+    <child link="link1"/>
+  </joint>
+
+  <link name="link1">
+    <visual>
+      <geometry>
+        <mesh filename="package://arm_description/mesh/link1.stl"/>
+      </geometry>
+    </visual>
+  </link>
+
+<joint name="link2_joint" type="revolute">
+    <origin xyz="0 29.60e-3 162.686e-3" rpy="0 0 0"/>
+    <limit upper="6.28" lower="-6.28" effort="1000" velocity="1000.00"/>
+    <axis xyz="0 1 0"/>
+    <parent link="link1"/>
+    <child link="link2"/>
+  </joint>
+
+  <link name="link2">
+    <visual>
+     <origin xyz="0 0 0" rpy="-1.57 0 0"/>
+      <geometry>
+        <mesh filename="package://arm_description/mesh/link2.stl"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="link3_joint" type="revolute">
+
+    <origin xyz="0 63.15e-3 0" rpy="0 0 0"/>
+    <limit upper="6.28" lower="-6.28" effort="1000" velocity="1000.00"/>
+    <axis xyz="1 0 0"/>
+    <parent link="link2"/>
+    <child link="link3"/>
+  </joint>
+
+  <link name="link3">
+    <visual>
+      <origin xyz="-12.5e-3 0 0" rpy="0 1.57 0"/>
+      <geometry>
+        <mesh filename="package://arm_description/mesh/link3.stl"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="link4_joint" type="revolute">
+    <origin xyz="0 130.50e-3 0" rpy="0 0 0"/>
+    <limit upper="6.28" lower="-6.28" effort="1000" velocity="1000.00"/>
+    <axis xyz="1 0 0"/>
+    <parent link="link3"/>
+    <child link="link4"/>
+  </joint>
+
+  <link name="link4">
+    <visual>
+       <origin xyz="0 0 0" rpy="0 -1.57 0"/>
+      <geometry>
+        <mesh filename="package://arm_description/mesh/link4.stl"/>
+      </geometry>
+    </visual>
+  </link>
+</robot>
