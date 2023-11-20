@@ -1,0 +1,5 @@
+<launch>
+    <node pkg="wheel_control" name="lidar_recognition" type="class"/>
+    <node pkg="wheel_control" name="vel_publisher" type="vel_cot" output="screen"/>
+    <node pkg="wheel_control" name="target_view" type="target_view"/>
+</launch>

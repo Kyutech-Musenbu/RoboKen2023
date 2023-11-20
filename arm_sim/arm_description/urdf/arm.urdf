@@ -147,4 +147,42 @@
       </geometry>
     </visual>
   </link>
+
+  <link name="laser">
+    <sensor name="ridar_sensor" type="ray">
+      <visualize>true</visualize>
+      <update_rate>10.0</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>41310</samples>
+            <resolution>0.00871450919658</resolution>
+            <min_angle>${radians(-180)}</min_angle>
+            <max_angle>${radians(180)}</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.15000000596</min>
+          <max>2.5</max>
+          <resolution>0.01</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </ray>
+      <plugin name="gazebo_ros_lidar_controller" filename="libgazebo_ros_laser.so">
+        <topicName>/scan</topicName>
+        <frameName>laser</frameName>
+      </plugin>
+    </sensor>
+  </link>
+
+  <joint name="ridar_joint" type="fixed">
+    <parent link="base"/>
+    <child link="laser"/>
+    <origin xyz="0 0.06 0.03" rpy="0 0 -1.57"/>
+  </joint>
+
 </robot>

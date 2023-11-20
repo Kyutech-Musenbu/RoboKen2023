@@ -3,7 +3,11 @@
 import wave
 import pyaudio
 import rospy
-from wav_service.srv import Voice
+from wav_service.srv import SetVoice
+from wav_service.msg import Voice
+import roslib.packages
+
+WAV_PATH = roslib.packages.get_pkg_dir('wav_service') + '/wav/'
 
 # FILENAME_MEN_="/home/robot/catkin_ws/src/RoboKen2023/wav_service/scripts/carenginestart1.wav"
 # FILENAME_DOU = "/home/robot/catkin_ws/src/RoboKen2023/wav_service/scripts/musicbox.wav"
@@ -14,22 +18,46 @@ CHUNK = 1024
 
 def wavrun(request):
 
-    if request.a == 1:
-        filename = "/home/robot/catkin_ws/src/RoboKen2023/wav_service/scripts/carenginestart1.wav"
-        print("wav1" + filename)
-    elif request.a == 2:
-        filename = "/home/robot/catkin_ws/src/RoboKen2023/wav_service/scripts/musicbox.wav"
-        print("wav2" + filename)
-    else :
-        filename = "/home/robot/catkin_ws/src/RoboKen2023/wav_service/scripts/strings.wav"
-        print("wav3" + filename)
+    # yoroshiku
+    if request.voice.id== Voice.YOROSHIKU:
+        filename = WAV_PATH + "yoroshiku.wav"
+    # dou
+    elif request.voice.id== Voice.DOU:
+        filename = WAV_PATH + "dou.wav"
+    # kote
+    elif request.voice.id== Voice.KOTE:
+        filename = WAV_PATH + "kote.wav"
+    # men
+    elif request.voice.id == Voice.MEN:
+        filename = WAV_PATH + "men.wav"
+    #low_battery
+    elif request.voice.id == Voice.LOW_BATTERY:
+        filename = WAV_PATH + "low_battery.wav"
+    #auto
+    elif request.voice.id == Voice.AUTO:
+        filename = WAV_PATH + "auto.wav"
+    #manual
+    elif request.voice.id == Voice.MANUAL:
+        filename = WAV_PATH + "manual.wav"
+    #tsuki
+    elif request.voice.id == Voice.TSUKI:
+        filename = WAV_PATH + "tsuki.wav"
+    #arigto
+    elif request.voice.id == Voice.ARIGATO:
+        filename = WAV_PATH + "arigato.wav"
 
     
     w = wave.open(filename, 'rb')
     p = pyaudio.PyAudio()
+    #ros info
+    rospy.loginfo("play wav file")
+    #ros info stream parameter
+    rospy.loginfo("format: %s", p.get_format_from_width(w.getsampwidth()))
+    rospy.loginfo("channels: %s", w.getnchannels())
+    rospy.loginfo("rate: %s", w.getframerate())
     stream = p.open(format=p.get_format_from_width(w.getsampwidth()),
                 channels=w.getnchannels(),
-                rate=w.getframerate(),
+                rate=44100,
                 output=True,
                 output_device_index=11)
 
@@ -41,28 +69,11 @@ def wavrun(request):
     stream.stop_stream()
     stream.close()
     p.terminate()
-    # PyAudioインスタンスを作成
-    #p = pyaudio.PyAudio()
-
-    # # 利用可能なオーディオデバイスの数を取得
-    # num_devices = p.get_device_count()
-
-    # # デバイスの情報を表示
-    # print("Available audio input devices:")
-    # for i in range(num_devices):
-    #     device_info = p.get_device_info_by_index(i)
-    #     if device_info['maxInputChannels'] > 0:
-    #         print("Device ID {}: {}".format(i, device_info['name']))
-
-
-    # # PyAudioインスタンスを終了
-    # p.terminate()
-
 
 def voice_server():
-    rospy.init_node('service_server')   #ノードを初期化
+    rospy.init_node('voice_node')   #ノードを初期化
 
-    service = rospy.Service('wav_service', Voice, wavrun)   #'word_count'という名前で．型がWordCount，callback関数がcount_wordsのサーバーを公開
+    service = rospy.Service('wav_service', SetVoice, wavrun)   #'word_count'という名前で．型がWordCount，callback関数がcount_wordsのサーバーを公開
     #リクエスト受付の準備完了
     print("Ready voice server.")
     rospy.spin()
