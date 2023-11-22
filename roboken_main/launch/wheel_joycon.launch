@@ -1,16 +1,16 @@
 <launch>
 
     <!-- <group ns="joycon"> -->
-      <node pkg="joycon" name="joycon_input" type="joy_twist"/>
+      <node pkg="joycon" name="joycon_input" type="joy_twist" output="screen"/>
     <!-- </group> -->
   
     <!-- <group ns="joy"> -->
       <node pkg="joy" name="joycon_output" type="joy_node"/>
     <!-- </group> -->
-   
+
     <!-- <group ns="joycon_aruduino"> -->
-        <node pkg="rosserial_python" name="wheel" type="serial_node.py"
-            args = "/dev/ttyACM0 _baud:=115200"></node>
+        <node pkg="rosserial_python" name="wheel" type="serial_node.py" output="screen"
+            args = "/dev/ttyACM0 _baud:=115200"> </node>
       <!-- </group> -->
 
 </launch>
